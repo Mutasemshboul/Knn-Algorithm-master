@@ -18,7 +18,13 @@ function forMin($sample,  $predictData,$Minn=0)
                         $resultForMin[$i][$j] = 0;
                     }
                     else{
-                        $resultForMin[$i][$j] = pow($predictData[1]-$Minn+1,2);
+                        if($sample[$i][$j]=="Apple" || $sample[$i][$j]=="Dell"|| $sample[$i][$j]=="Lenovo"|| $sample[$i][$j]=="HP"|| $sample[$i][$j]=="MSI"|| $sample[$i][$j]=="Acer"|| $sample[$i][$j]=="Asus"){
+                            $resultForMin[$i][$j] = pow($predictData[1]-$Minn+1,2);
+                        }
+                        else{
+                                $resultForMin[$i][$j] = 1;
+
+                            }
                     }
                 }
                 else{
