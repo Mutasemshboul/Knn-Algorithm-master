@@ -1,6 +1,6 @@
 <?php
 
-
+include 'DBconn.php';
 
 
   
@@ -115,4 +115,135 @@ return true;
 //   echo"<br>";
 // }
 
+$S1 = "SELECT  DISTINCT(UserID) as UserID from Orders";
+
+$user=mysqli_query($connection,$S1);
+
+
+$arr_users = array();
+
+
+
+while($Row = mysqli_fetch_array($user))
+{
+    array_push($arr_users,$Row["UserID"]);
+}
+
+
+$arr=[];
+for($i=0;$i<count($arr_users);$i++){
+    $S2=  "select ProductID from Orders where UserID='.$arr_users[$i].'";
+    $res = mysqli_query($connection,$S2);
+    while($row=mysqli_fetch_array($res)){
+        $arr[$i][]=$row[0];
+        //echo"<br>";
+
+}
+
+}
+
+$apriori = new Apriori($arr, 0.5);
+$apriori->mineAssociations();
+
+$frequentItemsets = $apriori->getFrequentItemsets($arr);
+
+//print_r($frequentItemsets);
+foreach($frequentItemsets as $I=>$v){
+  print_r(explode(" ",$I));
+  break;
+  echo"<br>";
+}
+//print_r($arr);
+
 ?>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The select element</h1>
+
+<p>The select element is used to create a drop-down list.</p>
+
+<form action="/action_page.php">
+  <label for="cars">Choose a car:</label>
+  <select name="cars" id="cars">
+    <?php
+    include 'DBconn.php';
+    $S1 = "SELECT  DISTINCT(Manufacturer) as Manufacturer from Laptops";
+    $ram=mysqli_query($connection,$S1);
+    while($row=mysqli_fetch_array($ram)){
+      echo '<option value="'.$row['Manufacturer'].'">'.$row['Manufacturer'].'</option>';
+    }
+    
+
+    
+    ?>
+    
+  </select>
+  <select name="cars" id="cars">
+    <?php
+    include 'DBconn.php';
+    $S1 = "SELECT  DISTINCT(RAM) as RAM from Laptops";
+    $ram=mysqli_query($connection,$S1);
+    while($row=mysqli_fetch_array($ram)){
+      echo '<option value="'.$row['RAM'].'">'.$row['RAM'].'</option>';
+    }
+    
+
+    
+    ?>
+    
+  </select>
+  <select name="cars" id="cars">
+    <?php
+    include 'DBconn.php';
+    $S1 = "SELECT  DISTINCT(Category) as Category from Laptops";
+    $ram=mysqli_query($connection,$S1);
+    while($row=mysqli_fetch_array($ram)){
+      echo '<option value="'.$row['Category'].'">'.$row['Category'].'</option>';
+    }
+    
+
+    
+    ?>
+    
+  </select>
+  <select name="cars" id="cars">
+    <?php
+    include 'DBconn.php';
+    $S1 = "SELECT  DISTINCT(CPU) as CPU from Laptops";
+    $ram=mysqli_query($connection,$S1);
+    while($row=mysqli_fetch_array($ram)){
+      echo '<option value="'.$row['CPU'].'">'.$row['CPU'].'</option>';
+    }
+    
+
+    
+    ?>
+    
+  </select>
+
+  <select name="cars" id="cars">
+    <?php
+    include 'DBconn.php';
+    $S1 = "SELECT  DISTINCT(GPU) as GPU from Laptops";
+    $ram=mysqli_query($connection,$S1);
+    while($row=mysqli_fetch_array($ram)){
+      echo '<option value="'.$row['GPU'].'">'.$row['GPU'].'</option>';
+    }
+    
+
+    
+    ?>
+    
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<p>Click the "Submit" button and the form-data will be sent to a page on the 
+server called "action_page.php".</p>
+
+</body>
+</html>

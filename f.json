@@ -1,0 +1,14 @@
+{
+   "User_1": {"Item_1": 2,
+             "Item_3": 3},
+
+   "User_2": {"Item_1": 5,
+               "Item_2": 2},
+
+   "User_3": {"Item_1": 3,
+              "Item_2": 3,
+              "Item_3": 1},
+
+   "User_4": {"Item_2": 2,
+              "Item_3": 3}
+             }
