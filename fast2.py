@@ -17,30 +17,37 @@ class Rating(BaseModel):
 
 
 
-dataset={
-        1: {'Item_1': 2,
-           'Item_3': 3},
-    
-        2: {'Item_1': 5,
-                    'Item_2': 2},
-    
-        3: {'Item_1': 3,
-                   'Item_2': 3,
-                   'Item_3': 1},
-    
-        4: {'Item_2': 2,
-                   'Item_3': 3}
-                  }
 
-def upfilejso():
-    with open('data.json', 'r') as f:
-        # Load the JSON data from the file
-        global dataset
-        dataset = json.load(f)
 
-dataset_df=pd.DataFrame(dataset)
-dataset_df.fillna("Not Seen Yet",inplace=True)
-dataset_df
+@app.post("/get-item/{ID}")
+def get_itme(ID:str,item:dict):
+    global dataset
+    dataset = item
+    l= {}
+    #tp = input().title()
+    if ID in dataset.keys():
+        a=recommendation_phase(ID)
+    if a != -1:
+        print("Recommendation Using Item based Collaborative Filtering:  ")
+        i = 0
+        for w,m in a:
+            #return m
+            l[i]=({"Item":m,"destence":w})
+            i+=1
+        print(l)
+    else:
+        return("Person not found in the dataset..please tryh again")
+    return l
+
+# def upfilejso():
+#     with open('data.json', 'r') as f:
+#         # Load the JSON data from the file
+#         global dataset
+#         dataset = json.load(f)
+
+# dataset_df=pd.DataFrame(dataset)
+# dataset_df.fillna("Not Seen Yet",inplace=True)
+# dataset_df
 
 # custom function to create unique set of web series
 
@@ -134,22 +141,7 @@ def recommendation_phase(target_person):
     return rankings
 
 
-@app.get("/get-item/{ID}")
-def get_itme(ID:str):
-    upfilejso()
-    l= []
-    #tp = input().title()
-    if ID in dataset.keys():
-        a=recommendation_phase(ID)
-    if a != -1:
-        print("Recommendation Using Item based Collaborative Filtering:  ")
-        for w,m in a:
-            return m
-            l.append([m,w])
-            print(m," ---> ",w)
-    else:
-        print("Person not found in the dataset..please try again")
-    return l
+
     
 
 

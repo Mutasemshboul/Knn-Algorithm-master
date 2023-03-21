@@ -14,7 +14,7 @@ while($row=mysqli_fetch_array($res)){
 }
 
 //print_r($sample[0][1]);
-$s=ForMin($sample,["Apple",1000,"Ultrabook","8GB","Intel Core i5 2.3GHz","ntel Iris Plus Graphics 640","128GB SSD"],$MinPrice);
+$s=ForMin($sample,["Dell",1000,"Gaming","16GB","Intel Core i5 2.3GHz","ntel Iris Plus Graphics 640","128GB SSD"],$MinPrice);
 //print_r($s);
 for($i=0;$i<100;$i++){
     $a = $s[$i][1];
